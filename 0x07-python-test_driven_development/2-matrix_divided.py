@@ -1,30 +1,37 @@
 #!/usr/bin/python3
-"""
-This is the "2-matrix_divided" module.
-The 2-matrix_divided module supplies one function, matrix_divided(matrix, div).
-"""
+"""implements a function -> def matrix() that
+ divides all elements of a matrix"""
 
 
 def matrix_divided(matrix, div):
-    """Divides all elements in the matrix by div"""
-    if type(matrix) is not list:
-        raise TypeError(
-            "matrix must be a matrix (list of lists) of integers/floats")
-    size = None
-    for l in matrix:
-        if type(l) is not list:
-            raise TypeError(
-                "matrix must be a matrix (list of lists) of integers/floats")
-        if size is None:
-            size = len(l)
-        elif size != len(l):
-            raise TypeError("Each row of the matrix must have the same size")
-        for i in l:
-            if type(i) is not int and type(i) is not float:
-                raise TypeError("matrix must be a matrix (list of lists) of \
-integers/floats")
-    if type(div) is not int and type(div) is not float:
-        raise TypeError("div must be a number")
+    new_matrix, new_row = [], []
+    prev_len = 0
+    messages = (
+        'matrix must be a matrix (list of lists) of integers/floats',
+        'Each row of the matrix must have the same size',
+        'div must be a number',
+        'division by zero'
+    )
+    if type(matrix) is not list or matrix == []:
+        raise TypeError(messages[0])
+
+    for row in matrix:
+        if type(row) is not list or row == []:
+            raise TypeError(messages[0])
+        for item in row:
+            if type(item) not in [int, float]:
+                raise TypeError(messages[0])
+
+        current_len = len(row)
+        if current_len != prev_len and prev_len != 0:
+            raise TypeError(messages[1])
+        prev_len = current_len
+
+    if type(div) not in [int, float]:
+        raise TypeError(messages[2])
     if div == 0:
-        raise ZeroDivisionError("division by zero")
-    return [[round(i / div, 2) for i in l] for l in matrix]
+        raise ZeroDivisionError(messages[3])
+    for row in matrix:
+        new_row = list(map(lambda x: round(x / div, 2), row))
+        new_matrix.append(new_row)
+    return new_matrix
