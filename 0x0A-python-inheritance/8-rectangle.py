@@ -1,17 +1,21 @@
 #!/usr/bin/python3
-"""Inherits and validates an attribute"""
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
+"""
+This module implements a Rectangle object
+"""
+
+
+BaseGeometry = __import__("7-base_geometry").BaseGeometry
 
 
 class Rectangle(BaseGeometry):
-    """
-    validates width and height values
-    using integer_validator property inherited @ 7-base_geometry
-    Args:
-        width (int): rectangle width
-        height (int): rectangle height
+    """Rectangle implementation
     """
     def __init__(self, width, height):
+        """initialisation
+        Args:
+            width (int): width
+            height (int): height
+        """
         self.integer_validator("width", width)
         self.integer_validator("height", height)
         self.__width = width
