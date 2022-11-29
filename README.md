@@ -1,1 +1,1 @@
-Introduction to Python
+JavaScript - Objects, Scopes and Closures
